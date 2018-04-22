@@ -15,12 +15,18 @@ class Board:
                              "rook": ["C1", "F1"],
                              "pawn": ["A2", "B2", "C2", "D2", "E2", "F2", "G2", "H2"]}
 
+    player_two_pieces_loc = {"king": ["D8"], "queen": ["E8"], "knight": ["B8", "G8"],
+                             "castle": ["A8", "H8"],
+                             "rook": ["C8", "F8"],
+                             "pawn": ["A7", "B7", "C7", "D7", "E7", "F7", "G7", "H7"]}
+
     board_size = None
     tile_size = None
     canvas = None
 
     tiles = []
-    pieces = []
+    player_one_pieces = []
+    player_two_pieces = []
 
     def __init__(self, canvas, board_size):
         self.board_size = board_size
@@ -31,7 +37,10 @@ class Board:
         self.draw_board()
 
         self.generate_player_one_pieces()
-        self.draw_pieces()
+        self.draw_player_one_pieces()
+
+        self.generate_player_two_pieces()
+        self.draw_player_two_pieces()
 
     def generate_tiles(self):
         for x in range(8):
@@ -55,12 +64,25 @@ class Board:
                 return tile
 
     def generate_player_one_pieces(self):
+        color = "green"
         for piece_type in self.pieces_types:
             locations = self.player_one_pieces_loc.get(piece_type)
             for tile_id in locations:
                 tile = self.tile_by_id(tile_id)
-                self.pieces.append(Piece(piece_type, tile))
+                self.player_one_pieces.append(Piece(piece_type, tile, color))
 
-    def draw_pieces(self):
-        for piece in self.pieces:
+    def generate_player_two_pieces(self):
+        color = "blue"
+        for piece_type in self.pieces_types:
+            locations = self.player_two_pieces_loc.get(piece_type)
+            for tile_id in locations:
+                tile = self.tile_by_id(tile_id)
+                self.player_two_pieces.append(Piece(piece_type, tile, color))
+
+    def draw_player_one_pieces(self):
+        for piece in self.player_one_pieces:
+            piece.draw_piece()
+
+    def draw_player_two_pieces(self):
+        for piece in self.player_two_pieces:
             piece.draw_piece()
