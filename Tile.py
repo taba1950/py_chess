@@ -9,6 +9,8 @@ class Tile:
     color = None
     tile_id = None
 
+    piece = None
+
     def __init__(self, board, row, col, tile_size, color, tile_id):
         self.board = board
         self.row = row
@@ -24,3 +26,9 @@ class Tile:
         canvas.create_rectangle(self.x, self.y, self.x+self.tile_size, self.y-self.tile_size,
                                 fill=self.color, outline="", activefill="red")
         canvas.create_text(self.x + 10, self.y - 10, text=self.tile_id)
+
+    def add_piece(self, piece):
+        self.piece = piece
+
+    def remove_piece(self):
+        self.piece = None

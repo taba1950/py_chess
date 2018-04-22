@@ -69,7 +69,10 @@ class Board:
             locations = self.player_one_pieces_loc.get(piece_type)
             for tile_id in locations:
                 tile = self.tile_by_id(tile_id)
-                self.player_one_pieces.append(Piece(piece_type, tile, color))
+                piece_id = piece_type+"1"
+                piece = Piece(piece_type, tile, color, piece_id)
+                self.player_one_pieces.append(piece)
+                tile.add_piece(piece)
 
     def generate_player_two_pieces(self):
         color = "blue"
@@ -77,7 +80,10 @@ class Board:
             locations = self.player_two_pieces_loc.get(piece_type)
             for tile_id in locations:
                 tile = self.tile_by_id(tile_id)
-                self.player_two_pieces.append(Piece(piece_type, tile, color))
+                piece_id = piece_type + "2"
+                piece = Piece(piece_type, tile, color, piece_id)
+                self.player_two_pieces.append(piece)
+                tile.add_piece(piece)
 
     def draw_player_one_pieces(self):
         for piece in self.player_one_pieces:
@@ -86,3 +92,8 @@ class Board:
     def draw_player_two_pieces(self):
         for piece in self.player_two_pieces:
             piece.draw_piece()
+
+    def tile_intersect(self, x, y):
+        for tile in self.tiles:
+            if (x > tile.x) & (x < (tile.x+tile.tile_size)) & (y < tile.y) & (y > (tile.y - tile.tile_size)):
+                return tile

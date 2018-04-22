@@ -1,15 +1,29 @@
 from tkinter import *
 from Board import *
+from GamePlay import *
 
-board_size = 600
 
-master = Tk()
+def graphics():
+    board_size = 640
 
-master.title("Chess")
+    master = Tk()
 
-canvas = Canvas(master, width=board_size, height=board_size)
-canvas.pack()
+    master.title("Chess")
+    master.resizable(width=NO, height=NO)
 
-board = Board(canvas, board_size)
+    canvas = Canvas(master, width=board_size, height=board_size)
 
-mainloop()
+    canvas.pack()
+
+    board = Board(canvas, board_size)
+
+    game_play = GamePlay(board)
+
+    canvas.bind("<Button-1>", lambda event: game_play.got_event(event))
+
+    mainloop()
+
+
+
+
+graphics()

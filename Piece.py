@@ -4,10 +4,13 @@ class Piece:
     tile = None
     color = None
 
-    def __init__(self, piece_type, tile, color):
+    piece_id = None
+
+    def __init__(self, piece_type, tile, color, piece_id):
         self.piece_type = piece_type
         self.tile = tile
         self.color = color
+        self.piece_id = piece_id
 
     def draw_piece(self):
         canvas = self.tile.board.canvas
