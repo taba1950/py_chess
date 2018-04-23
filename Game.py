@@ -24,6 +24,4 @@ def graphics():
     mainloop()
 
 
-
-
 graphics()

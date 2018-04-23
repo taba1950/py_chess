@@ -65,23 +65,25 @@ class Board:
 
     def generate_player_one_pieces(self):
         color = "green"
+        player = 1
         for piece_type in self.pieces_types:
             locations = self.player_one_pieces_loc.get(piece_type)
             for tile_id in locations:
                 tile = self.tile_by_id(tile_id)
                 piece_id = piece_type+"1"
-                piece = Piece(piece_type, tile, color, piece_id)
+                piece = Piece(piece_type, tile, color, piece_id, player)
                 self.player_one_pieces.append(piece)
                 tile.add_piece(piece)
 
     def generate_player_two_pieces(self):
         color = "blue"
+        player = 2
         for piece_type in self.pieces_types:
             locations = self.player_two_pieces_loc.get(piece_type)
             for tile_id in locations:
                 tile = self.tile_by_id(tile_id)
                 piece_id = piece_type + "2"
-                piece = Piece(piece_type, tile, color, piece_id)
+                piece = Piece(piece_type, tile, color, piece_id, 2)
                 self.player_two_pieces.append(piece)
                 tile.add_piece(piece)
 
@@ -97,3 +99,21 @@ class Board:
         for tile in self.tiles:
             if (x > tile.x) & (x < (tile.x+tile.tile_size)) & (y < tile.y) & (y > (tile.y - tile.tile_size)):
                 return tile
+
+    def move_piece(self, piece, target):
+        source = piece.tile
+        piece.tile = target
+        target.piece = piece
+        source.piece = None
+
+    def tile_by_row_col(self, row, col):
+        for tile in self.tiles:
+            if tile.row == row & tile.col == col:
+                return tile
+            else:
+                return None
+
+    def redraw(self):
+        self.draw_board()
+        self.draw_player_one_pieces()
+        self.draw_player_two_pieces()
