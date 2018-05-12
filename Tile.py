@@ -25,7 +25,7 @@ class Tile:
         canvas = self.board.canvas
         canvas.create_rectangle(self.x, self.y, self.x+self.tile_size, self.y-self.tile_size,
                                 fill=self.color, outline="", activefill="red")
-        canvas.create_text(self.x + 10, self.y - 10, text=self.tile_id)
+        canvas.create_text(self.x + 10, self.y - 10, text=self.tile_id+" r:"+str(self.row)+" c:"+str(self.col))
 
     def add_piece(self, piece):
         self.piece = piece
