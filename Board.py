@@ -8,31 +8,25 @@ class Board:
     rows = ["1", "2", "3", "4", "5", "6", "7", "8"]
     cols = ["A", "B", "C", "D", "E", "F", "G", "H"]
 
-    board_size = None
-    tile_size = None
-    canvas = None
-
-    tiles = []
-
-    player_one = None
-    player_two = None
-
-    player_one_pieces = []
-    player_two_pieces = []
-
     def __init__(self, canvas, board_size):
         self.board_size = board_size
         self.tile_size = board_size/8
         self.canvas = canvas
 
+        self.tiles = []
+
         self.generate_tiles()
         self.draw_board()
 
-        self.create_player_two()
-        self.draw_player_one_pieces()
+        self.player_one = None
+        self.player_two = None
+
+        self.player_one_pieces = []
+        self.player_two_pieces = []
+
+        self.create_player_one()
 
         self.create_player_two()
-        self.draw_player_two_pieces()
 
     def generate_tiles(self):
         for x in range(8):
@@ -44,7 +38,8 @@ class Board:
 
                 tile_id = self.cols[y]+self.rows[x]
 
-                self.tiles.append(Tile(self, x, y, self.tile_size, color, tile_id))
+                self.tiles.append(
+                    Tile(self, x, y, self.tile_size, color, tile_id))
 
     def draw_board(self):
         for tile in self.tiles:
@@ -59,11 +54,13 @@ class Board:
         color = "green"
         player = 1
         self.player_one = Player(player, color, self)
+        self.draw_player_one_pieces()
 
     def create_player_two(self):
         color = "blue"
         player = 2
-        self.player_one = Player(player, color, self)
+        self.player_two = Player(player, color, self)
+        self.draw_player_two_pieces()
 
     def draw_player_one_pieces(self):
         self.player_one.draw()

@@ -2,16 +2,14 @@
 
 class GamePlay:
 
-    board = None
-
-    moving = False
-    moving_piece = None
-
     player_one_color = "green"
     player_two_color = "blue"
 
     def __init__(self, board):
         self.board = board
+
+        self.moving = False
+        self.moving_piece = None
 
     def find_tile(self, event):
         return self.board.tile_intersect(event.x, event.y)

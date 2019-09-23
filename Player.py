@@ -16,26 +16,28 @@ class Player:
                              "pawn": ["A7", "B7", "C7", "D7", "E7", "F7", "G7", "H7"]}
 
     pieces = []
-    player = None
-    board = None
-    color = None
 
     def __init__(self, player, color, board):
         self.player = player
         self.board = board
         self.color = color
+        self.generate_player_pieces()
 
     def generate_player_pieces(self):
         for piece_type in self.pieces_types:
-            locations = self.player_one_pieces_loc.get(piece_type)
+            if self.player == 1:
+                locations = self.player_one_pieces_loc.get(piece_type)
+            elif self.player == 2:
+                locations = self.player_two_pieces_loc.get(piece_type)
+
             for tile_id in locations:
                 tile = self.board.tile_by_id(tile_id)
                 piece_id = piece_type + "1"
-                piece = Piece(piece_type, tile, self.color, piece_id, self.player)
+                piece = Piece(piece_type, tile, self.color,
+                              piece_id, self.player)
                 self.pieces.append(piece)
                 tile.add_piece(piece)
 
     def draw(self):
         for piece in self.pieces:
             piece.draw_piece()
-
